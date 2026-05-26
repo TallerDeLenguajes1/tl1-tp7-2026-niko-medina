@@ -15,6 +15,12 @@ namespace EspacioEmpleado{
             FechaIngreso = ingreso;
             Cargo = cargo;
         }
+        public string getNombre(){
+            return this.Nombre;
+        }
+        public string getApellido(){
+            return this.Apellido;
+        }
 
         public int antiguedad(){
             return DateTime.Today.Year - FechaIngreso.Year;  // fecha actual - fecha ingreso
