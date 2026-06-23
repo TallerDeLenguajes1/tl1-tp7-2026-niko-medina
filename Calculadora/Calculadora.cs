@@ -22,7 +22,7 @@ namespace EspacioCalculadora {
         {
             dato /= termino;
         }
-        public void Limpiar(double termino)
+        public void Limpiar()
         {
             dato = 0;
         }
