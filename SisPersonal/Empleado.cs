@@ -15,42 +15,52 @@ namespace EspacioEmpleado{
             FechaIngreso = ingreso;
             Cargo = cargo;
         }
-        public string getNombre(){
+        public string GetNombre(){
             return this.Nombre;
         }
-        public string getApellido(){
+        public string GetApellido(){
             return this.Apellido;
         }
 
-        public int antiguedad(){
+        public int Antiguedad(){
             return DateTime.Today.Year - FechaIngreso.Year;  // fecha actual - fecha ingreso
         }
-        public int edad(){
+        public int Edad(){
             return DateTime.Today.Year - FechaNacimiento.Year; //fecha actual - fecha nacimiento
         }
-        public int aniosHastaJubilacion(){
-            return 65 - this.edad();
+        public int AniosHastaJubilacion(){
+            return 65 - Edad();
         }
-        public float salario(){
-            return 1000 + adicional(); // sueldo basico + adicional
+        public float Salario(){
+            float basico = 1000000;
+            return basico + Adicional(basico); // sueldo basico + adicional
         }
 
-        private float adicional(){
+        private float Adicional(float basico){
             // 1 % del sueldo básico por cada año de antigüedad hasta los 20 años, a partir de este, el porcentaje se fija en 25%
-            if(this.antiguedad() > 20){
-                // por cada anio despues del 20, sumar 25% del sueldo basico
-            } else{
+            float adicional = 0;
+            if(Antiguedad() > 20){          
                 // por cada anio hasta 20, sumar 1% del sueldo basico
+                adicional += (float)(20 *basico*0.01);
+                // por cada anio despues del 20, sumar 25% del sueldo basico
+                adicional += (float)((Antiguedad() - 20)*basico*0.25);
+            }
+            else
+            {
+                // por cada anio hasta 20, sumar 1% del sueldo basico
+                adicional += (float)(Antiguedad()*basico*0.01);
             }
 
-            if(this.Cargo == Cargos.Ingeniero || this.Cargo == Cargos.Especialista){
+            if(Cargo == Cargos.Ingeniero || Cargo == Cargos.Especialista){
                 // el adicional aumenta un 50%
+                adicional += (float)(0.5 * adicional);
             }
 
-            if(this.EstadoCivil == 'C'){
+            if(EstadoCivil == 'C'){
                 // Si es casado al Adicional se le aumenta $150.000
+                adicional += 150000;
             }
-            return 0;
+            return adicional;
         }
 
     }
